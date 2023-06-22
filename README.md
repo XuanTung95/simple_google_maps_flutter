@@ -1,39 +1,60 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+A clone of **google_maps_flutter** but use **simple_platform_view** instead of **AndroidView** for performance optimization
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Please check the [simple_platform_view](https://github.com/XuanTung95/simple_platform_view) package before using this package, as simple_platform_view comes with several drawbacks that need to be considered beforehand.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+| Platform | Status     |
+|----------|------------|
+| Android  | 	✅     |
+| iOS      | ⚠️ |
 
-```dart
-const like = 'sample';
+Add the following dependency to your pubspec.yaml file:
+
+```
+dependencies:
+  google_maps_flutter:
+  simple_google_maps_flutter:
 ```
 
-## Additional information
+#### Android:
+**Make FlutterView transparent (required)**
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Add the following code to MainActivity.kt:
+  ```java
+    import androidx.annotation.NonNull;
+    import io.flutter.embedding.android.FlutterActivity;
+    import io.flutter.embedding.android.FlutterActivityLaunchConfigs.BackgroundMode;
+
+    public class MainActivity extends FlutterActivity {
+
+        @NonNull
+        @Override
+        protected BackgroundMode getBackgroundMode() {
+            return BackgroundMode.transparent;
+        }
+    }
+  ```
+
+Replace the default GoogleMapsFlutterPlatform.instance with the modified version:
+
+  ```dart
+    import 'package:simple_google_maps_flutter/simple_google_maps_flutter.dart';
+
+    @override
+    void initState() {
+        super.initState();
+        if (Platform.isAndroid) {
+            SimpleGoogleMapsFlutterAndroid.registerWith();
+        }
+    }
+  ```
+
+Other usage is just like google_maps_flutter package
+
+
+| Demo                       |
+| ------------------------------|
+| <img src="https://raw.githubusercontent.com/XuanTung95/simple_platform_view/master/images/demo_video.gif" width="220" height="450"> |
