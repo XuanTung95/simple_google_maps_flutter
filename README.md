@@ -57,4 +57,4 @@ Other usage is just like google_maps_flutter package
 
 | Demo                       |
 | ------------------------------|
-| <img src="https://raw.githubusercontent.com/XuanTung95/simple_platform_view/master/images/demo_video.gif" width="220" height="450"> |
+| <img src="https://raw.githubusercontent.com/XuanTung95/simple_google_maps_flutter/master/images/demo.gif" width="220" height="450"> |

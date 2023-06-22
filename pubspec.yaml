@@ -1,7 +1,7 @@
 name: simple_google_maps_flutter
-description: A new Flutter package project.
+description: A clone of google_maps_flutter but use simple_platform_view instead of AndroidView for performance optimization
 version: 0.0.1
-homepage:
+homepage: https://github.com/XuanTung95/simple_google_maps_flutter
 
 environment:
   sdk: '>=2.17.0 <4.0.0'
@@ -13,6 +13,7 @@ dependencies:
 
   google_maps_flutter_platform_interface: ^2.2.7
   simple_platform_view: ^0.0.1
+  stream_transform: ^2.0.0
 
 dev_dependencies:
   flutter_test:
