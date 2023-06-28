@@ -2,7 +2,7 @@ A clone of **google_maps_flutter** but use **simple_platform_view** instead of *
 
 ## Getting started
 
-Please check the [simple_platform_view](https://github.com/XuanTung95/simple_platform_view) package before using this package, as simple_platform_view comes with several drawbacks that need to be considered beforehand.
+Please check the [simple_platform_view](https://pub.dev/packages/simple_platform_view) package before using this package, as simple_platform_view comes with several drawbacks that need to be considered beforehand.
 
 ## Usage
 
