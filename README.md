@@ -9,7 +9,7 @@ Please check the [simple_platform_view](https://github.com/XuanTung95/simple_pla
 | Platform | Status     |
 |----------|------------|
 | Android  | 	✅     |
-| iOS      | ⚠️ |
+| iOS      | 	✅     |
 
 Add the following dependency to your pubspec.yaml file:
 
@@ -54,6 +54,41 @@ Replace the default GoogleMapsFlutterPlatform.instance with the modified version
 
 Other usage is just like google_maps_flutter package
 
+#### iOS:
+
+**Register PlatformViewFactory**
+
+Add this to AppDelegate.swift to register PlatformViewFactory to `SimplePlatformViewPlugin`:
+  ```swift
+import GoogleMaps
+import simple_platform_view;
+
+@objc class AppDelegate: FlutterAppDelegate {
+    override func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        GMSServices.provideAPIKey("")
+        let fakeRegistry = SimplePlatformViewPlugin.createFakeFlutterPluginRegistry(realPluginRegistry: self);
+        GeneratedPluginRegistrant.register(with: fakeRegistry);
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+}
+  ```
+
+Replace the default GoogleMapsFlutterPlatform.instance with the modified version:
+
+  ```dart
+    import 'package:simple_google_maps_flutter/simple_google_maps_flutter.dart';
+
+    @override
+    void initState() {
+        super.initState();
+        if (Platform.isIOS) {
+          SimpleGoogleMapsFlutterIOS.registerWith();
+        }
+    }
+  ```
 
 | Demo                       |
 | ------------------------------|

@@ -1,7 +1,11 @@
 import 'package:example/select_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_platform_view/simple_platform_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // clean plugin after hot restart
+  await SimplePlatformView.restart();
   runApp(const MyApp());
 }
 

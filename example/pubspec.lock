@@ -232,14 +232,13 @@ packages:
     source: path
     version: "0.0.1"
   simple_platform_view:
-    dependency: transitive
+    dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: "26d1aa01a978339b79ae20893548d650c8fa5fb5"
-      url: "https://github.com/XuanTung95/simple_platform_view.git"
-    source: git
-    version: "0.0.1"
+      name: simple_platform_view
+      sha256: ef7e16bf740bb3d9cf75c6da8466e7f11da98048062e209dd755091b3a010d02
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   sky_engine:
     dependency: transitive
     description: flutter

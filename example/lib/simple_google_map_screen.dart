@@ -21,16 +21,19 @@ class _CloneGoogleMapScreenState extends State<CloneGoogleMapScreen> {
     zoom: 14.4746,
   );
 
+  int count = 0;
+  GoogleMapController? controller;
+
   @override
   void initState() {
     super.initState();
     /// Replace GoogleMapsFlutterPlatform.instance with the modified version
     if (Platform.isAndroid) {
       SimpleGoogleMapsFlutterAndroid.registerWith();
+    } else if (Platform.isIOS) {
+      SimpleGoogleMapsFlutterIOS.registerWith();
     }
   }
-
-  int count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +43,14 @@ class _CloneGoogleMapScreenState extends State<CloneGoogleMapScreen> {
       ),
       body: Stack(
         children: [
-          const Center(
+          Center(
             child: SizedBox.expand(
               child: GoogleMap(
                 initialCameraPosition: _kGooglePlex,
+                onMapCreated: (GoogleMapController controller) {
+                  print("onMapCreated mapId: ${controller.mapId}");
+                  this.controller = controller;
+                }
               ),
             ),
           ),
@@ -53,6 +60,7 @@ class _CloneGoogleMapScreenState extends State<CloneGoogleMapScreen> {
                 setState(() {
                   count++;
                 });
+                controller?.moveCamera(CameraUpdate.newLatLng(const LatLng(20.988394, -156.663843)));
               },
               child: const Icon(Icons.abc),
             ),
