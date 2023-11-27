@@ -4,8 +4,6 @@ import 'package:simple_platform_view/simple_platform_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // clean plugin after hot restart
-  await SimplePlatformView.restart();
   runApp(const MyApp());
 }
 
@@ -36,6 +34,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      // Fix StretchingOverscrollIndicator issues
+      scrollBehavior: SimplePlatformViewScrollBehavior(),
       home: const SelectScreen(),
     );
   }

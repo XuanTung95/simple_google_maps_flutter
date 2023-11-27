@@ -6,10 +6,29 @@ Please check the [simple_platform_view](https://pub.dev/packages/simple_platform
 
 ## Usage
 
-| Platform | Status     |
-|----------|------------|
-| Android  | 	✅     |
-| iOS      | 	✅     |
+| Platform | Status    |
+|----------|-----------|
+| Android  | 	✅    |
+| iOS      | 	❌     |
+
+#### Download the custom engine
+[simple_platform_view](https://pub.dev/packages/simple_platform_view) requires modifications to the engine itself. Therefore, to run it on Android, you need to use a modified version of Flutter.
+
+Download the custom Flutter version [Here](https://github.com/XuanTung95/flutter/releases).
+
+Unzip the downloaded `flutter.zip` file.
+
+Run the following command to download the custom engine artifacts for the first time:
+
+```
+   $ path_to_custom_version/flutter/bin/flutter doctor
+```
+
+Then use it same as a normal Flutter installation:
+
+```
+   $ path_to_custom_version/flutter/bin/flutter build apk
+```
 
 Add the following dependency to your pubspec.yaml file:
 
@@ -20,24 +39,6 @@ dependencies:
 ```
 
 #### Android:
-**Make FlutterView transparent (required)**
-
-Add the following code to MainActivity.kt:
-  ```java
-    import androidx.annotation.NonNull;
-    import io.flutter.embedding.android.FlutterActivity;
-    import io.flutter.embedding.android.FlutterActivityLaunchConfigs.BackgroundMode;
-
-    public class MainActivity extends FlutterActivity {
-
-        @NonNull
-        @Override
-        protected BackgroundMode getBackgroundMode() {
-            return BackgroundMode.transparent;
-        }
-    }
-  ```
-
 Replace the default GoogleMapsFlutterPlatform.instance with the modified version:
 
   ```dart
@@ -52,43 +53,25 @@ Replace the default GoogleMapsFlutterPlatform.instance with the modified version
     }
   ```
 
+If you are using Google Map inside a scroll view, add this to your `MaterialApp` to prevent issues with `StretchingOverscrollIndicator`:
+
+  ```dart
+    import 'package:simple_platform_view/simple_platform_view.dart';
+
+    @override
+    Widget build(BuildContext context) {
+      return MaterialApp(
+        // Fix StretchingOverscrollIndicator issues
+        scrollBehavior: SimplePlatformViewScrollBehavior(),
+      );
+    }
+  ```
+
 Other usage is just like google_maps_flutter package
 
 #### iOS:
 
-**Register PlatformViewFactory**
-
-Add this to AppDelegate.swift to register PlatformViewFactory to `SimplePlatformViewPlugin`:
-  ```swift
-import GoogleMaps
-import simple_platform_view;
-
-@objc class AppDelegate: FlutterAppDelegate {
-    override func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-    ) -> Bool {
-        GMSServices.provideAPIKey("")
-        let fakeRegistry = SimplePlatformViewPlugin.createFakeFlutterPluginRegistry(realPluginRegistry: self);
-        GeneratedPluginRegistrant.register(with: fakeRegistry);
-        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-    }
-}
-  ```
-
-Replace the default GoogleMapsFlutterPlatform.instance with the modified version:
-
-  ```dart
-    import 'package:simple_google_maps_flutter/simple_google_maps_flutter.dart';
-
-    @override
-    void initState() {
-        super.initState();
-        if (Platform.isIOS) {
-          SimpleGoogleMapsFlutterIOS.registerWith();
-        }
-    }
-  ```
+**iOS is not supported**
 
 | Demo                       |
 | ------------------------------|

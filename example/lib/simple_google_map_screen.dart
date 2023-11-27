@@ -30,8 +30,6 @@ class _CloneGoogleMapScreenState extends State<CloneGoogleMapScreen> {
     /// Replace GoogleMapsFlutterPlatform.instance with the modified version
     if (Platform.isAndroid) {
       SimpleGoogleMapsFlutterAndroid.registerWith();
-    } else if (Platform.isIOS) {
-      SimpleGoogleMapsFlutterIOS.registerWith();
     }
   }
 
